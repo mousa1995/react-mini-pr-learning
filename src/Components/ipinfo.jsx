@@ -11,20 +11,24 @@ export default class IpInfo extends Component {
     }
 
     async getIp() {
-        const request = await fetch('https://api.ipify.org?format=json');
-        const data = await request.json();
-        return data;
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        return data; //return's a promise
     }
 
     async getInfo() {
         const ip = await this.getIp().ip;
-        const data = await (await fetch(`http://ipwhois.app/json/${ip}`)).json();
-
-        console.log(data);
+        const response = await fetch(`http://ipwhois.app/json/${ip}`);
+        const data = await response.json();
+        return data; //return's a promise
     }
 
     componentDidMount() {
-        this.getInfo()
+        this.getInfo().then(data => {
+            this.setState({
+                info: data
+            })
+        })
     }
 
     render() {
