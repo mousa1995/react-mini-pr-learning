@@ -1,6 +1,32 @@
 import React, { Component } from 'react'
 
 export default class IpInfo extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            info: null
+        }
+    }
+
+    async getIp() {
+        const request = await fetch('https://api.ipify.org?format=json');
+        const data = await request.json();
+        return data;
+    }
+
+    async getInfo() {
+        const ip = await this.getIp().ip;
+        const data = await (await fetch(`http://ipwhois.app/json/${ip}`)).json();
+
+        console.log(data);
+    }
+
+    componentDidMount() {
+        this.getInfo()
+    }
+
     render() {
         return (
             <div className="card-container">
