@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { BallTriangle } from 'react-loader-spinner';
 
 export default class IpInfo extends Component {
 
@@ -6,7 +7,8 @@ export default class IpInfo extends Component {
         super(props);
 
         this.state = {
-            info: null
+            info: null,
+            isLoading: true
         }
     }
 
@@ -26,25 +28,29 @@ export default class IpInfo extends Component {
     componentDidMount() {
         this.getInfo().then(data => {
             this.setState({
-                info: data
+                info: data,
+                isLoading: false
             })
         })
     }
 
     render() {
-        return (
-            <div className="card-container">
-                <span className="info">Info</span>
-                <img className="round" src="./br.svg" alt="brazil" />
-                <h3>Brazil</h3>
-                <h6>Guarulhos</h6>
-                <p>isp: Akamai International B.V.</p>
-                <div className="footer">
-                    <p>IP: 2.21.90.0</p>
-                    <p>latitude: -23.4543395</p>
-                    <p>longitude: -46.5336678</p>
-                </div>
-            </div>
+        return (<>
+            {this.state.isLoading && <BallTriangle color="red" height={80} width={80} />}
+            {!this.state.isLoading &&
+                <div className="card-container">
+                    <span className="info">Info</span>
+                    <img className="round" src="./br.svg" alt="brazil" />
+                    <h3>Brazil</h3>
+                    <h6>Guarulhos</h6>
+                    <p>isp: Akamai International B.V.</p>
+                    <div className="footer">
+                        <p>IP: 2.21.90.0</p>
+                        <p>latitude: -23.4543395</p>
+                        <p>longitude: -46.5336678</p>
+                    </div>
+                </div>}
+        </>
         )
     }
 }
