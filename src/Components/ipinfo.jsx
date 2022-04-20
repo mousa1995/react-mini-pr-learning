@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { BallTriangle } from 'react-loader-spinner';
+import Info from './info';
 
 export default class IpInfo extends Component {
 
@@ -38,18 +39,7 @@ export default class IpInfo extends Component {
         return (<>
             {this.state.isLoading && <BallTriangle color="red" height={80} width={80} />}
             {!this.state.isLoading &&
-                <div className="card-container">
-                    <span className="info">Info</span>
-                    <img className="round" src={this.state.info.country_flag} alt={this.state.info.country} />
-                    <h3>{this.state.info.country}</h3>
-                    <h6>{this.state.info.city}</h6>
-                    <p>isp: {this.state.info.isp}</p>
-                    <div className="footer">
-                        <p>IP: {this.state.info.ip}</p>
-                        <p>latitude: {this.state.info.latitude}</p>
-                        <p>longitude: {this.state.info.longitude}</p>
-                    </div>
-                </div>}
+                <Info info={this.state.info} />}
         </>
         )
     }
